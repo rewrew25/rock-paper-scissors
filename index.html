@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <script>
+    // generates a random computer choice //
+    function computerPlay() {
+      let choices = ['rock', 'paper', 'scissors'];
+      let computerSelection = Math.floor(Math.random() * choices.length);
+      return choices[computerSelection];
+    }
+    // asks user to select their choice //
+    const playerSelection = prompt("Please choose rock, paper, or scissors").toLowerCase();
+    // will place response in lowercase letters //
+    
+    // plays a single round of the game //
+    function playRound(playerSelection, computerSelection) {
+      if (playerSelection === computerSelection) {
+        return "The result is a tie!";
+      } 
+      else if(playerSelection === 'rock') {
+        if(computerSelection === 'scissors') {
+          return 'You win! Rock beats scissors!';
+      } 
+      else if(playerSelection === 'scissors') {
+        if(computerSelection === 'rock') {
+          return 'You lose! Rock beats scissors!';
+      } 
+      else if(playerSelection === 'paper') {
+        if(computerSelection === 'rock') {
+          return 'You win! Paper beats rock!';
+      }
+      else if(playerSelection === 'rock') {
+        if(computerSelection === 'paper') {
+          return 'You lose! Paper beats rock!';
+        }
+      else if(playerSelection === 'scissors') {
+        if(computerSelection === 'paper') {
+          return 'You win! Scissors beats paper!';
+        }
+      else if(playerSelection === 'paper') {
+        if(computerSelection === 'scissors') {
+          return 'You lose! Scissors beats paper!';
+        }
+      }
+      }
+      }
+      }
+      }
+      } 
+    } 
+const computerSelection = computerPlay();
+console.log(playRound(playerSelection, computerSelection));
+  </script>
+</body>
+</html>

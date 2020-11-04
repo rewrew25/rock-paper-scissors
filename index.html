@@ -6,16 +6,14 @@
 </head>
 <body>
 <script>
-
+// computer selects randomly between rock, paper, or scissors //
 function computerPlay() {
   let computerOptions = ['rock', 'paper', 'scissors'];
   let computerSelection = computerOptions[Math.floor(Math.random() * computerOptions.length)];
   return computerSelection;
 }
-console.log(computerPlay());
-
+// a round of play returns win/lose, and scores for all possible outcomes //
 function playRound(playerSelection, computerSelection) {
-  //* declares message variable in playRound *//
   if (playerSelection === computerSelection) {
     return tie;
   } else if (playerSelection.toLowerCase() === 'rock' && computerSelection === 'scissors') {
@@ -38,13 +36,14 @@ function playRound(playerSelection, computerSelection) {
     return lose;
   }
 }
-
+// names the relevant variables needed to call within game function //
 let playerScore = parseInt(0);
 let computerScore = parseInt(0);
 let win = "You win";
 let lose = "You lose";
 let tie = "It is a tie!";
- 
+
+// allows the game to play 5 rounds, and if rounds is less than 5, game will continue playing until 5 rounds completed //
 let i = 0;
 const game = () => {
   let playerSelection = prompt("Please choose rock, paper, or scissors");

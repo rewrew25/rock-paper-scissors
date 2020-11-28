@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Alegreya SC'>
+  <style>
+    html {
+      font-family: 'Alegreya SC'; font-size: 24px;
+      background-color: aquamarine;
+    }
+    h1 {
+      color: #d12608;
+      text-align: center;
+      margin: 0px;
+      padding: 0px;
+    }
+    h2 {
+      text-align: center;
+      color: #d12608;
+      line-height: 10px;
+      margin: 10px;
+      padding: 10px;
+      font-size: 24px;
+    }
+    h3 {
+      text-align: center;
+      color: #d12608;
+      margin: 0px;
+      padding: 10px;
+    }
+    #game {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    
+    .button {
+      font-family: 'Alegreya SC';
+      font-size: 30px;
+      padding: 16px;
+      text-align: center;
+      border-radius: 12px;
+      width: 150px;
+      border-color: rgb(48, 45, 44);
+    }
+    .button:hover {
+      border-color:cornsilk;
+      box-shadow: 0 12px 16px 0 rgb(241, 230, 230), 0 20px 40px 0 rgb(241, 230, 230);
+    }
+    #rock {
+      background-color: slategrey;
+      color: black
+    }
+    #paper {
+      background-color: snow;
+      color: black
+    }
+    #scissors {
+      background-color: rgb(244, 247, 92);
+      color: black
+    }
+    #reset {
+      background-color: #d12608;
+      color: antiquewhite;
+      font-size: 16px;
+    }
+    #roundresults {
+      color: #d12608;
+      text-align: center;
+      font-size: 28px;
+      align-self: auto;
+      text-decoration: underline;
+    }
+    #results {
+      color: darkslategray;
+      font-size: 16px;
+      list-style-type: none;
+      align-self: auto;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    #endofgame {
+      font-size: 40px;
+      align-self: auto;
+    }
+    #scores {
+      color: #ff3c00;
+      font-size: 22px;
+      align-self: auto;
+    }
+    </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors</h1>
+    <h2>The first to win 5 rounds will win the game</h2>
+  <div id="game">
+    <div class="choices">
+      <h3>Choose your weapon!</h3>
+    <button id="rock" class="button">Rock</button>
+    <button id="paper" class="button">Paper</button>
+    <button id="scissors" class="button">Scissors</button>
+    <br><br><br>
+    <button id="reset" class="button">Reset Game</button>
+  </div>
+  <div class=scoring>
+    <p id="roundresults">RESULTS</p>
+    <div id="scores"></div>
+    <div id="endofgame"></div>
+      <ul id="results"></ul>
+  </div>
+</div>
+<script>
+// human and computer scores start at 0 //
+  let playerScore = 0;
+  let computerScore = 0;
+
+// each HTML button is linked to a js variable //
+  let rock = document.getElementById('rock');
+  let paper = document.getElementById('paper');
+  let scissors = document.getElementById('scissors');
+  let resetBtn = document.getElementById('reset');
+
+// indicates the computer's random selection for a round of gameplay //
+  function computerPlay() {
+  let computerOptions = ['rock', 'paper', 'scissors'];
+  let computerSelection = computerOptions[Math.floor(Math.random() * computerOptions.length)];
+  return computerSelection;
+}
+
+// compares the human vs. computer selection and returns a result for the round of play //
+function playRound(playerSelection, computerSelection) {
+  if (playerSelection === computerSelection) {
+    let list = document.createElement("LI");
+    let resultText = document.createTextNode(playerSelection + ' vs ' + computerSelection + '..... You Tie! Play Again!')
+    list.appendChild(resultText);
+    document.getElementById("results").appendChild(list);
+
+  } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
+    ++playerScore;
+    let list = document.createElement("LI");
+    let resultText = document.createTextNode(`${playerSelection}  vs  ${computerSelection} ..... You Win!`);
+    list.appendChild(resultText);
+    document.getElementById("results").appendChild(list);
+    
+  } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
+    ++computerScore;
+    let list = document.createElement("LI");
+    let resultText = document.createTextNode(`${playerSelection}  vs  ${computerSelection} ..... You Lose!`);
+    list.appendChild(resultText);
+    document.getElementById("results").appendChild(list);
+    
+  } else if (playerSelection === 'paper' && computerSelection === 'rock') {
+    ++playerScore;
+    let list = document.createElement("LI");
+    let resultText = document.createTextNode(`${playerSelection}  vs  ${computerSelection} ..... You Win!`);
+    list.appendChild(resultText);
+    document.getElementById("results").appendChild(list);
+
+  } else if (playerSelection === 'rock' && computerSelection === 'paper') {
+    ++computerScore;
+    let list = document.createElement("LI");
+    let resultText = document.createTextNode(`${playerSelection}  vs  ${computerSelection} ..... You Lose!`);
+    list.appendChild(resultText);
+    document.getElementById("results").appendChild(list);
+    
+  } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
+    ++playerScore;
+    let list = document.createElement("LI");
+    let resultText = document.createTextNode(`${playerSelection}  vs  ${computerSelection} ..... You Win!`);
+    list.appendChild(resultText);
+    document.getElementById("results").appendChild(list);
+    
+  } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
+    ++computerScore;
+    let list = document.createElement("LI");
+    let resultText = document.createTextNode(`${playerSelection}  vs  ${computerSelection} ..... You Lose!`);
+    list.appendChild(resultText);
+    document.getElementById("results").appendChild(list);
+  }
+}
+
+// plays the game until a winner is reached by allowing a new player choice and computer choice per round until either scores 5 //
+function game(playerSelection) {
+  const computerSelection = computerPlay();
+
+  playRound(playerSelection, computerSelection);
+
+  let scores = document.getElementById("scores");
+    scores.textContent = `Human Score: ${playerScore}   Computer Score: ${computerScore}`;
+
+  if (playerScore == 5) {
+    let finalResult = document.createElement("P");
+    let finalResultText = document.createTextNode('The Human Wins!');
+    finalResult.appendChild(finalResultText);
+    document.getElementById("endofgame").appendChild(finalResult);
+    
+  } else if (computerScore == 5) {
+    let finalResult = document.createElement("P");
+    let finalResultText = document.createTextNode('The Computer Wins!');
+    finalResult.appendChild(finalResultText);
+    document.getElementById("endofgame").appendChild(finalResult);
+  }
+};
+
+// adds function of game play to initiate if R, S, or P button is clicked; allows page reload if Reset button is clicked //
+  rock.addEventListener('click', () => {
+    game("rock");
+  });
+
+  paper.addEventListener('click', () => {
+    game("paper");
+  });
+
+  scissors.addEventListener('click', () => {
+    game("scissors");
+  });
+
+  resetBtn.addEventListener('click', () => {
+    location.reload();
+  });
+
+
+</script>
+</body>
+</html>
